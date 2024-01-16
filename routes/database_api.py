@@ -171,7 +171,7 @@ def use_donation(user_email, donation_id):
             if affected_rows > 0:
                 kst = pytz.timezone('Asia/Seoul')
                 current_date = datetime.now(kst).strftime('%Y-%m-%d')
-                mileage_tracking_sql = "INSERT INTO mileage_tracking (user_email, mileage_category_id, before_mileage, after_mileage, current_date) VALUES (%s, %s, %s, %s, %s)"
+                mileage_tracking_sql = "INSERT INTO mileage_tracking (user_email, mileage_category_id, before_mileage, after_mileage, use_date) VALUES (%s, %s, %s, %s, %s)"
                 cursor.execute(mileage_tracking_sql, (user_email, donation_id, mileage_before, mileage_after, current_date))
                 con.commit()
                 return mileage_after
@@ -196,38 +196,6 @@ def get_user_mileage(user_email):
         print(e)
 
 
-
-# def get_tracking(user_email, start_date, end_date):
-#     try:
-#         with connect(**connectionString) as con:
-#             cursor = con.cursor()
-#
-#             start_date = datetime.strptime(start_date, '%Y-%m-%d')
-#             end_date = datetime.strptime(end_date, '%Y-%m-%d')
-#
-#             select_sql = "SELECT  * FROM mileage_tracking WHERE use_date BETWEEN %s AND %s AND user_email = %s"
-#             cursor.execute(select_sql, (start_date, end_date, user_email))
-#
-#             result = cursor.fetchall()
-#             combined_result = []
-#
-#             for row in result:
-#                 mileage_category_id = row['mileage_category_id']
-#                 select_sql_category = "SELECT * FROM mileage_category WHERE id = %s"
-#                 cursor.execute(select_sql_category, (mileage_category_id,))
-#                 result_category = cursor.fetchall()
-#
-#                 combined_row = {
-#                     "mileage_tracking": row,
-#                     "mileage_category": result_category
-#                 }
-#                 combined_result.append(combined_row)
-#             print(combined_result)
-#             return combined_result
-#             # return result
-#
-#     except Exception as e:
-#         print(e)
 def get_tracking(user_email, start_date, end_date):
     try:
         with connect(**connectionString) as con:
@@ -336,8 +304,51 @@ def add_mileage(user_email):
             select_sql = "SELECT mileage FROM user WHERE email = %s"
             cursor.execute(select_sql, (user_email,))
             updated_mileage = cursor.fetchone()['mileage']
+            
+            
+            # Insert a record into mileage_tracking
+            kst = pytz.timezone('Asia/Seoul')
+            current_date = datetime.now(kst).strftime('%Y-%m-%d')
+            insert_tracking_sql = "INSERT INTO mileage_tracking (user_email, mileage_category_id, before_mileage, after_mileage, use_date) VALUES (%s, %s, %s, %s, %s)"
+            cursor.execute(insert_tracking_sql, (user_email, 1, updated_mileage-100, updated_mileage, current_date))
+            con.commit()
 
             return updated_mileage
 
     except Exception as e:
         print(e)
+
+
+def get_mileage_count(user_email):
+    try:
+        with connect(**connectionString) as con:
+            cursor = con.cursor()
+
+            sql = "SELECT COUNT(*) as mileage_count FROM mileage_tracking WHERE user_email = %s AND mileage_category_id = 1"
+            cursor.execute(sql, (user_email,))
+            mileage_count = cursor.fetchone()['mileage_count']
+
+            return mileage_count
+
+    except Exception as e:
+        print(e)
+        return 0
+
+def get_donation_count(user_email):
+    try:
+        with connect(**connectionString) as con:
+            cursor = con.cursor()
+
+            sql = ("SELECT COUNT(*) as donation_count "
+                   "FROM mileage_tracking mt "
+                   "JOIN mileage_category mc ON mt.mileage_category_id = mc.id "
+                   "WHERE mt.user_email = %s AND mc.category = 'donation'")
+            
+            cursor.execute(sql, (user_email,))
+            donation_count = cursor.fetchone()['donation_count']
+            # donation_count = cursor.fetchone()[0]
+            return donation_count
+
+    except Exception as e:
+        print(e)
+        return 0

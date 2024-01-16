@@ -60,3 +60,21 @@ def get_mileage_tracking(current_user):
         print(e)
         return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}
 
+
+@mypage_bp.route('/get_mileage_info')
+@token_required
+def get_mileage_info(current_user):
+    try:
+        mileage_count = database.get_mileage_count(current_user)
+        donation_count = database.get_donation_count(current_user)
+        current_mileage = database.get_user_mileage(current_user)
+        
+        response = {
+            'current_mileage': current_mileage,
+            'mileage_count': mileage_count,
+            'donation_count': donation_count
+        }
+        return jsonify({'result': response}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}
