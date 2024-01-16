@@ -31,6 +31,9 @@ def token_required(f):
 
     return decorated
 
+@user_bp.route('/')
+def test_route():
+    return jsonify({}), 200
 
 @user_bp.route('/login', methods=["POST"])
 def login():

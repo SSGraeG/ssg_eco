@@ -3,12 +3,11 @@ from pymysql import connect
 from datetime import datetime
 import pytz
 
-
 connectionString = {
     # 'host': '127.0.0.1',
-    'host': 'eco-rds.cykey8vytdto.ap-northeast-2.rds.amazonaws.com',
+    'host': 'eco-rds.chjhms6dyeyt.ap-northeast-1.rds.amazonaws.com',
     'port': 3306,
-    'database': 'company_2',
+    'database': 'company_9',
     'user': 'admin',
     # 'user': 'root',
     # 'password': '1234',
