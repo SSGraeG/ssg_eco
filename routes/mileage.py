@@ -67,6 +67,7 @@ def donation_use(current_user):
     if request.method == 'POST':
         try:
             donation_id = request.json.get('donation_id')
+            print(donation_id)
             current_mileage = database.use_donation(current_user, donation_id)
             return jsonify({'mileage': current_mileage}), 200
         except Exception as e:
