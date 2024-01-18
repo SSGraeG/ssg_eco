@@ -6,9 +6,9 @@ on:
 
 env:					
   AWS_REGION: ap-northeast-1
-  S3_BUCKET_NAME: userbackend
-  CODE_DEPLOY_APPLICATION_NAME: deploy-user
-  CODE_DEPLOY_DEPLOY_GROUP_NAME: UserDeployGroup
+  S3_BUCKET_NAME: userbe-01-bucket
+  CODE_DEPLOY_APPLICATION_NAME: User01-BE-CD
+  CODE_DEPLOY_DEPLOY_GROUP_NAME: UserBE-01-CDG
 
 permissions:				
   contents: read
