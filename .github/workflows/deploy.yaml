@@ -7,8 +7,8 @@ on:
 env:					
   AWS_REGION: ap-northeast-1
   S3_BUCKET_NAME: userbe-01-bucket
-  CODE_DEPLOY_APPLICATION_NAME: User01-BE-CD
-  CODE_DEPLOY_DEPLOY_GROUP_NAME: UserBE-01-CDG
+  CODE_DEPLOY_APPLICATION_NAME: userbe-01-ap
+  CODE_DEPLOY_DEPLOY_GROUP_NAME: userbe-01-cdg
 
 permissions:				
   contents: read
