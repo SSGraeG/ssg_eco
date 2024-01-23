@@ -1,12 +1,13 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, Flask
 from functools import wraps
 from keras.models import load_model  # TensorFlow is required for Keras to work
 from PIL import Image, ImageOps  # Install pillow instead of PIL
 import numpy as np
 from authenticated_users import authenticated_users
 from . import database_api as database
+import logging
 
-
+app = Flask(__name__)
 model_bp = Blueprint('model_bp', __name__)
 # 토큰 유효성 검사 및 인증된 요청 처리
 def token_required(f):
@@ -68,8 +69,8 @@ def predict_image(file):
         confidence_score = prediction[0][index]
 
         # Print prediction and confidence score
-        print("Class:", class_name[2:], end="")
-        print("Confidence Score:", confidence_score)
+        app.logger.debug("Class:", class_name[2:], end="")
+        app.logger.debug("Confidence Score:", confidence_score)
         return class_name[2:]
     except Exception as e:
         print(e)
