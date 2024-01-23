@@ -16,4 +16,5 @@ chown -R ubuntu /home/ubuntu/ssg_backend
 sudo chown -R ubuntu:ubuntu /home/ubuntu/ssg_backend
 
 echo ">>> start server ---------------------"
-flask run --host 0.0.0.0 --port 5000 --timeout 90 --debug >> "$LOGFILE" 2>&1
+#gunicorn --bind 0.0.0.0:5000 --timeout 90 --log-level=debug "app:create_app()" >> "$LOGFILE" 2>&1 &
+flask run --host 0.0.0.0:5000 --timeout 90 --debug >> "$LOGFILE" 2>&1
