@@ -33,7 +33,7 @@ def token_required(f):
 
 @user_bp.route('/')
 def test_route():
-    return jsonify({'test': 'V3'}), 200
+    return jsonify({'test': 'V6'}), 200
 
 @user_bp.route('/login', methods=["POST"])
 def login():
