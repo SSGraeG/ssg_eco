@@ -1,6 +1,5 @@
 #!/bin/bash
-ACCESS_LOGFILE=/home/ubuntu/gunicorn_access.log
-ERROR_LOGFILE=/home/ubuntu/gunicorn_error.log
+LOGFILE=/home/ubuntu/gunicorn.log
 
 cd /home/ubuntu/ssg_backend || exit
 
@@ -16,4 +15,4 @@ chown -R ubuntu /home/ubuntu/ssg_backend
 sudo chown -R ubuntu:ubuntu /home/ubuntu/ssg_backend
 
 echo ">>> start server ---------------------"
-gunicorn --bind 0.0.0.0:5000 --timeout 90 "app:create_app()" --access-logfile "$ACCESS_LOGFILE" --error-logfile "$ERROR_LOGFILE" --log-level info &
+gunicorn --bind 0.0.0.0:5000 --timeout 90 --log-level debug "app:create_app()" >> "$LOGFILE" 2>&1 &
