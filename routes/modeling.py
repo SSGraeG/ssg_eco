@@ -36,7 +36,7 @@ def predict_image(file):
         np.set_printoptions(suppress=True)
 
         # Load the model
-        model = load_model("/home/ubuntu/ssg_backend/keras_Model.h5", compile=False)
+        model = load_model("/home/ubuntu/ssg_backend/keras_model.h5", compile=False)
 
         # Load the labels
         class_names = open("/home/ubuntu/ssg_backend/labels.txt", "r").readlines()
