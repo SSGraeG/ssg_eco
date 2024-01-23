@@ -10,8 +10,7 @@ else
 fi
 
 # 로그 파일과 프로젝트 디렉터리를 초기화합니다.
-rm -rf /home/ubuntu/gunicorn_access.log
-rm -rf /home/ubuntu/gunicorn_error.log
+rm -rf /home/ubuntu/gunicorn.log
 rm -rf /home/ubuntu/ssg_backend
 mkdir /home/ubuntu/ssg_backend
 
