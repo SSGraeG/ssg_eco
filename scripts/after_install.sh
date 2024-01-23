@@ -1,4 +1,5 @@
 #!/bin/bash
+
 LOGFILE=/home/ubuntu/gunicorn.log
 
 cd /home/ubuntu/ssg_backend || exit
@@ -13,8 +14,6 @@ echo ">>> change owner to ubuntu "
 chown -R ubuntu /home/ubuntu/ssg_backend
 
 sudo chown -R ubuntu:ubuntu /home/ubuntu/ssg_backend
-
-echo ">>> start server ---------------------"
 
 echo ">>> start server ---------------------"
 flask run --host 0.0.0.0 --port 5000 --timeout 90 --debug >> "$LOGFILE" 2>&1
