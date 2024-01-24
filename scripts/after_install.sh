@@ -17,6 +17,3 @@ sudo chown -R ubuntu:ubuntu /home/ubuntu/ssg_backend
 echo ">>> start server ---------------------"
 gunicorn --bind 0.0.0.0:5000 --timeout 90 --log-level debug --reload "app:create_app()" >> "$LOGFILE" 2>&1 &
 
-# Flask 앱을 디버그 모드로 실행
-export FLASK_ENV=development
-python -m flask run --host=0.0.0.0 --port=5000
