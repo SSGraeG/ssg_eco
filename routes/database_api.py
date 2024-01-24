@@ -23,10 +23,11 @@ def login(email, token):
     try:
         with connect(**connectionString) as con:
             cursor = con.cursor()
-            sql = "INSERT INTO user_token (email, token) VALUES (%s, %s)"
+            sql = "INSERT INTO user_token (user_email, token) VALUES (%s, %s)"
             cursor.execute(sql, (email,token))
             user_info = cursor.fetchall()
             con.commit()
+            app.logger.debug(user_info)
             return user_info, 200, {'Content-Type': 'application/json'}
     except Exception as e:
         app.logger.debug(e)
