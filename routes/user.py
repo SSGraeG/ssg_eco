@@ -27,7 +27,6 @@ def token_required(f):
         if is_user:
             current_user = is_user
         else:
-
             return jsonify({'message': 'Token is invalid!'}), 401
         app.logger.debug(current_user)
         return f(current_user, *args, **kwargs)
@@ -56,6 +55,7 @@ def login():
 @user_bp.route('/logout', methods=["GET"])
 @token_required
 def logout(current_user):
+    app.logger.debug(current_user)
     token = request.headers.get('x-access-token')
     is_delete = database.delete_token(token)
     if is_delete:
