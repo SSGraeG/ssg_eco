@@ -26,7 +26,7 @@ def token_required(f):
         else:
 
             return jsonify({'message': 'Token is invalid!'}), 401
-        print(current_user)
+        app.logger.debug(current_user)
         return f(current_user, *args, **kwargs)
 
     return decorated
@@ -76,7 +76,7 @@ def signup():
             return jsonify({"message": "성공"}), 200, {'Content-Type': 'application/json'}
 
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}
 
 
@@ -84,8 +84,8 @@ def signup():
 @token_required
 def mypage(current_user):
     try:
-        print(current_user)
+        app.logger.debug(current_user)
         return database.get_user(current_user)
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}

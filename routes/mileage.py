@@ -34,7 +34,7 @@ def coupon_list():
         coupon_lists = database.get_coupon()
         return jsonify({'coupon': coupon_lists}), 200
     except Exception as e:  
-        print(e)
+        app.logger.debug(e)
         return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}
 
 
@@ -47,7 +47,7 @@ def coupon_use(current_user):
             current_mileage = database.use_coupon(current_user, coupon_id)
             return jsonify({'mileage': current_mileage}), 200
         except Exception as e:
-            print(e)
+            app.logger.debug(e)
             return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}
 
 
@@ -57,7 +57,7 @@ def donation_list():
         donation_lists = database.get_donation()
         return jsonify({'coupon': donation_lists}), 200
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}
 
 
@@ -67,11 +67,11 @@ def donation_use(current_user):
     if request.method == 'POST':
         try:
             donation_id = request.json.get('donation_id')
-            print(donation_id)
+            app.logger.debug(donation_id)
             current_mileage = database.use_donation(current_user, donation_id)
             return jsonify({'mileage': current_mileage}), 200
         except Exception as e:
-            print(e)
+            app.logger.debug(e)
             return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}
 
 
@@ -84,5 +84,5 @@ def my_mileage(current_user):
         user_mileage = database.get_user_mileage(current_user)
         return jsonify({'mileage': user_mileage}), 200
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}

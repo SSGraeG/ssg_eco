@@ -26,7 +26,7 @@ def login(email, token):
             con.commit()
             return user_info, 200, {'Content-Type': 'application/json'}
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 def get_all():
@@ -38,7 +38,7 @@ def get_all():
             result = cursor.fetchall()
             return result
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 def id_check(user_id, pwd):
@@ -50,7 +50,7 @@ def id_check(user_id, pwd):
             result = cursor.fetchall()
             return result
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 def id_duplicate_check(email):
@@ -62,7 +62,7 @@ def id_duplicate_check(email):
             result = cursor.fetchone()
             return result
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 def sign_up(email, name, password, address):
@@ -75,7 +75,7 @@ def sign_up(email, name, password, address):
             con.commit()
             return user_info, 200, {'Content-Type': 'application/json'}
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 def get_user(email):
@@ -88,7 +88,7 @@ def get_user(email):
             con.commit()
             return user_info
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 def get_coupon():
@@ -101,7 +101,7 @@ def get_coupon():
             con.commit()
             return coupon_list
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 def get_donation():
@@ -114,7 +114,7 @@ def get_donation():
             con.commit()
             return donation_list
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 def use_coupon(user_email, coupon_id):
@@ -152,7 +152,7 @@ def use_coupon(user_email, coupon_id):
                 con.commit()
                 return mileage_after
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return 500
 
 
@@ -187,7 +187,7 @@ def use_donation(user_email, donation_id):
                 con.commit()
                 return mileage_after
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return 500
 
 
@@ -204,7 +204,7 @@ def get_user_mileage(user_email):
             return user_mileage
 
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 def get_tracking(user_email, start_date, end_date):
@@ -241,11 +241,11 @@ def get_tracking(user_email, start_date, end_date):
                 }
                 combined_result.append(combined_row)
 
-            print(combined_result)
+            app.logger.debug(combined_result)
             return combined_result
 
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return None
 
 
@@ -280,11 +280,11 @@ def get_all_tracking(user_email):
                 }
                 combined_result.append(combined_row)
 
-            print(combined_result)
+            app.logger.debug(combined_result)
             return combined_result
 
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return None
 # 사용자 현재 마일리지 잔액 가져오기
 def get_user_mielage(user_email):
@@ -299,7 +299,7 @@ def get_user_mielage(user_email):
             return user_mileage
 
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 # AI 판독 성공 후 마일리지 적립
@@ -327,7 +327,7 @@ def add_mileage(user_email):
             return updated_mileage
 
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 def get_mileage_count(user_email):
@@ -342,7 +342,7 @@ def get_mileage_count(user_email):
             return mileage_count
 
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return 0
 
 def get_donation_count(user_email):
@@ -361,5 +361,5 @@ def get_donation_count(user_email):
             return donation_count
 
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return 0

@@ -25,7 +25,7 @@ def token_required(f):
             current_user = authenticated_users[token]
         else:
             return jsonify({'message': 'Token is invalid!'}), 401
-        print(current_user)
+        app.logger.debug(current_user)
         return f(current_user, *args, **kwargs)
 
     return decorated
@@ -68,12 +68,12 @@ def predict_image(file):
         class_name = class_names[index]
         confidence_score = prediction[0][index]
 
-        # Print prediction and confidence score
+        # app.logger.debug prediction and confidence score
         app.logger.debug("Class:", class_name[2:], end="")
         app.logger.debug("Confidence Score:", confidence_score)
         return class_name[2:]
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
 
 
 
@@ -91,5 +91,5 @@ def image(current_user):
         else:
             return jsonify({"message": "실패"}), 200, {'Content-Type': 'application/json'}
     except Exception as e:
-        print(e)
+        app.logger.debug(e)
         return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}
