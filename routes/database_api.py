@@ -109,7 +109,7 @@ def get_user(email):
         with connect(**connectionString) as con:
             cursor = con.cursor()
             sql = "SELECT * FROM user where email = %s;"
-            cursor.execute(sql, (email))
+            cursor.execute(sql, (email, ))
             user_info = cursor.fetchone()
             con.commit()
             return user_info
