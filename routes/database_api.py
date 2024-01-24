@@ -51,9 +51,11 @@ def get_user_by_token(token):
             sql = "SELECT user_email FROM user_token WHERE token = %s"
             cursor.execute(sql, (token,))
             user_email = cursor.fetchone()
+            user_email = user_email[0]
             return user_email
     except Exception as e:
         app.logger.debug(e)
+
 
 def get_all():
     try:
