@@ -6,13 +6,15 @@ from routes.mileage import mileage_bp
 from routes.mypage import mypage_bp
 from flask_jwt_extended import JWTManager
 import os
+import logging
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 def create_app():
     app = Flask(__name__, static_folder='./resources/')
     app.config["JWT_SECRET_KEY"] = "super-secret"
-
+    
+    logging.basicConfig(level=logging.DEBUG)
     # app.authenticated_users = {}
 
     # Blueprint 등록
