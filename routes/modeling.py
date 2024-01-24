@@ -1,11 +1,11 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, Flask
 from functools import wraps
 from keras.models import load_model  # TensorFlow is required for Keras to work
 from PIL import Image, ImageOps  # Install pillow instead of PIL
 import numpy as np
 from authenticated_users import authenticated_users
 from . import database_api as database
-import Flask
+from flask import Flask
 
 app = Flask(__name__)
 model_bp = Blueprint('model_bp', __name__)

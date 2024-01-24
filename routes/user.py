@@ -1,10 +1,9 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, Flask
 from flask_jwt_extended import create_access_token
 from functools import wraps
 from . import database_api as database
 import datetime
 from authenticated_users import authenticated_users
-import Flask
 
 app = Flask(__name__)
 user_bp = Blueprint('user', __name__)

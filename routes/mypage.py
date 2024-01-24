@@ -1,8 +1,7 @@
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, Flask
 from authenticated_users import authenticated_users
 from functools import wraps
 from . import database_api as database
-import Flask
 
 app = Flask(__name__)
 

@@ -2,7 +2,7 @@ import pymysql
 from pymysql import connect
 from datetime import datetime
 import pytz
-import Flask
+from flask import Flask
 
 app = Flask(__name__)
 
