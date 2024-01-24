@@ -2,6 +2,9 @@ import pymysql
 from pymysql import connect
 from datetime import datetime
 import pytz
+import Flask
+
+app = Flask(__name__)
 
 connectionString = {
     # 'host': '127.0.0.1',
