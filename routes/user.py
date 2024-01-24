@@ -4,9 +4,12 @@ from functools import wraps
 from . import database_api as database
 import datetime
 from authenticated_users import authenticated_users
+import logging
 from flask import Flask
 
+
 app = Flask(__name__)
+app.logger.setLevel(logging.DEBUG)
 user_bp = Blueprint('user', __name__)
 # authenticated_users = {}
 
