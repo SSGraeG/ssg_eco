@@ -18,9 +18,10 @@ def token_required(f):
 
         if not token:
             return jsonify({'message': 'Token is missing!'}), 401
-
-        if token in authenticated_users:
-            current_user = authenticated_users[token]
+        
+        is_user = database.get_user_by_token(token)
+        if is_user:
+            current_user = is_user
         else:
             return jsonify({'message': 'Token is invalid!'}), 401
         app.logger.debug(current_user)
