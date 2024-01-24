@@ -31,7 +31,29 @@ def login(email, token):
             return user_info, 200, {'Content-Type': 'application/json'}
     except Exception as e:
         app.logger.debug(e)
-
+        
+def delete_token(token):
+    try:
+        with connect(**connectionString) as con:
+            cursor = con.cursor()
+            sql = "DELETE FROM user_token WHERE token = %s"
+            cursor.execute(sql, (token,))
+            con.commit()
+            return True
+    except Exception as e:
+        app.logger.debug(e)
+        return False
+    
+def get_user_by_token(token):
+    try:
+        with connect(**connectionString) as con:
+            cursor = con.cursor()
+            sql = "SELECT user_email FROM user_token WHERE token = %s"
+            cursor.execute(sql, (token,))
+            user_email = cursor.fetchone()
+            return user_email
+    except Exception as e:
+        app.logger.debug(e)
 
 def get_all():
     try:

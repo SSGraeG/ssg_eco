@@ -22,9 +22,10 @@ def token_required(f):
 
         if not token:
             return jsonify({'message': 'Token is missing!'}), 401
-
-        if token in authenticated_users:
-            current_user = authenticated_users[token]
+        
+        is_user = database.get_user_by_token(token)
+        if is_user:
+            current_user = is_user
         else:
 
             return jsonify({'message': 'Token is invalid!'}), 401
@@ -56,8 +57,8 @@ def login():
 @token_required
 def logout(current_user):
     token = request.headers.get('x-access-token')
-    if token in authenticated_users:
-        del authenticated_users[token]
+    is_delete = database.delete_token(token)
+    if is_delete:
         return jsonify({"message": "로그아웃 성공"}), 200
     else:
         return jsonify({"message": "토큰이 존재하지 않습니다."}), 404
