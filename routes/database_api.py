@@ -112,6 +112,7 @@ def get_user(email):
             cursor.execute(sql, (email, ))
             user_info = cursor.fetchone()
             con.commit()
+            app.logger.debug(user_info +"get_user")
             return user_info
     except Exception as e:
         app.logger.debug(e)
