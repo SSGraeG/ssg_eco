@@ -2,7 +2,7 @@ from flask import Blueprint, Flask, request, jsonify
 from functools import wraps
 from . import database_api as database
 from authenticated_users import authenticated_users
-
+from flask import Flask
 app = Flask(__name__)
 mileage_bp = Blueprint('mileage', __name__)
 

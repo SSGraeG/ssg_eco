@@ -2,7 +2,7 @@ from flask import Blueprint, request, jsonify, Flask
 from authenticated_users import authenticated_users
 from functools import wraps
 from . import database_api as database
-
+from flask import Flask
 app = Flask(__name__)
 
 mypage_bp = Blueprint('mypage', __name__)
