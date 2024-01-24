@@ -44,8 +44,7 @@ def login():
         is_id = database.id_check(email, password)
         if is_id:
             token = create_access_token(identity=email, expires_delta=datetime.timedelta(seconds=100))
-            authenticated_users[token] = email
-            authenticated_users[token] = email
+            database.login(email, token)
             return jsonify({'token': token}), 200
         else:
             return jsonify({'message': '잘못된 로그인 정보'}), 401

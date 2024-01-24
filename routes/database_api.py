@@ -16,6 +16,18 @@ connectionString = {
     'cursorclass': pymysql.cursors.DictCursor
 }
 
+def login(email, token):
+    try:
+        with connect(**connectionString) as con:
+            cursor = con.cursor()
+            sql = "INSERT INTO user_token (email, token) VALUES (%s, %s)"
+            cursor.execute(sql, (email,token))
+            user_info = cursor.fetchall()
+            con.commit()
+            return user_info, 200, {'Content-Type': 'application/json'}
+    except Exception as e:
+        print(e)
+
 
 def get_all():
     try:
