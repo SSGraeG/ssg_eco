@@ -71,7 +71,7 @@ def predict_image(file):
         confidence_score = prediction[0][index]
 
         # app.logger.debug prediction and confidence score
-        app.logger.debug("Class:", class_name[2:], end="")
+        app.logger.debug("Class:", class_name[2:])
         app.logger.debug("Confidence Score:", confidence_score)
         return class_name[2:]
     except Exception as e:

@@ -1,6 +1,6 @@
 import pymysql
 from pymysql import connect
-from datetime import datetime
+from datetime import datetime, timedelta
 import pytz
 from flask import Flask
 
@@ -51,9 +51,9 @@ def get_user_by_token(token):
             sql = "SELECT user_email FROM user_token WHERE token = %s"
             cursor.execute(sql, (token,))
   
-            user_email = cursor.fetchall()
-            user_email = user_email[0]['user_email']
-            return user_email
+            user_email = cursor.fetchone()
+            # user_email = user_email[0]['user_email']
+            return user_email.get('user_email')
     except Exception as e:
         app.logger.debug(e)
 
@@ -115,7 +115,6 @@ def get_user(email):
             cursor.execute(sql, (email, ))
             user_info = cursor.fetchone()
             con.commit()
-            app.logger.debug(user_info +"get_user")
             return user_info
     except Exception as e:
         app.logger.debug(e)
@@ -133,6 +132,32 @@ def get_coupon():
     except Exception as e:
         app.logger.debug(e)
 
+from datetime import datetime
+
+def get_user_coupon(user_email):
+    try:
+        with connect(**connectionString) as con:
+            cursor = con.cursor()
+            sql = ("SELECT cl.*, mc.name as category_name "
+                   "FROM coupon_list cl "
+                   "JOIN mileage_category mc ON cl.mileage_category_id = mc.id "
+                   "WHERE cl.user_email = %s AND mc.category = 'coupon' "
+                   "ORDER BY mc.usepoint")
+            cursor.execute(sql, (user_email,))
+            coupon_list = cursor.fetchall()
+
+            # Format the 'expired_date' in the result set
+            for coupon in coupon_list:
+                coupon['expired_date'] = coupon['expired_date'].strftime('%Y-%m-%d')
+
+            con.commit()
+            print(coupon_list)
+            return coupon_list
+    except Exception as e:
+        app.logger.debug(e)
+
+
+
 
 def get_donation():
     try:
@@ -146,7 +171,7 @@ def get_donation():
     except Exception as e:
         app.logger.debug(e)
 
-
+# 쿠폰 전환 -> 마일리지 업데이트, 사용자 마일리지 테이블에 넣기
 def use_coupon(user_email, coupon_id):
     try:
         with connect(**connectionString) as con:
@@ -179,6 +204,11 @@ def use_coupon(user_email, coupon_id):
                 current_date = datetime.now(kst).strftime('%Y-%m-%d')
                 mileage_tracking_sql = "INSERT INTO mileage_tracking (user_email, mileage_category_id, before_mileage, after_mileage, use_date) VALUES (%s, %s, %s, %s, %s)"
                 cursor.execute(mileage_tracking_sql, (user_email, coupon_id, mileage_before, mileage_after, current_date))
+                con.commit()
+                
+                expiration_date = (datetime.now(kst) + timedelta(days=30)).strftime('%Y-%m-%d')
+                coupon_list_sql = "INSERT INTO coupon_list (expired_date, user_email, mileage_category_id) VALUES (%s, %s, %s)"
+                cursor.execute(coupon_list_sql, (expiration_date, user_email, coupon_id))
                 con.commit()
                 return mileage_after
     except Exception as e:
@@ -286,7 +316,7 @@ def get_all_tracking(user_email):
 
             select_sql = ("SELECT mt.*, mc.* FROM mileage_tracking mt JOIN mileage_category mc "
                           "ON mt.mileage_category_id = mc.id "
-                          "WHERE mt.user_email = %s "
+                          "WHERE mt.user_email = %s AND mc.id != 1 "
                           "ORDER BY mt.use_date DESC")
             cursor.execute(select_sql, (user_email))
 

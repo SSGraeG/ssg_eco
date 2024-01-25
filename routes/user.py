@@ -31,7 +31,7 @@ def token_required(f):
             current_user = is_user
         else:
             return jsonify({'message': 'Token is invalid!'}), 401
-        app.logger.debug(current_user)
+
         return f(current_user, *args, **kwargs)
 
     return decorated

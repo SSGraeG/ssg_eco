@@ -20,11 +20,12 @@ def token_required(f):
             return jsonify({'message': 'Token is missing!'}), 401
         
         is_user = database.get_user_by_token(token)
+  
         if is_user:
             current_user = is_user
         else:
             return jsonify({'message': 'Token is invalid!'}), 401
-        app.logger.debug("current", current_user)
+
         return f(current_user, *args, **kwargs)
 
     return decorated
@@ -70,11 +71,13 @@ def get_mileage_info(current_user):
         mileage_count = database.get_mileage_count(current_user)
         donation_count = database.get_donation_count(current_user)
         current_mileage = database.get_user_mileage(current_user)
-        
+        coupons = database.get_user_coupon(current_user)
+        print(mileage_count,donation_count, current_mileage)
         response = {
             'current_mileage': current_mileage,
             'mileage_count': mileage_count,
-            'donation_count': donation_count
+            'donation_count': donation_count,
+            'coupons': coupons
         }
         return jsonify({'result': response}), 200
     except Exception as e:
