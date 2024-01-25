@@ -277,7 +277,7 @@ def get_tracking(user_email, start_date, end_date):
 
             select_sql = ("SELECT mt.*, mc.* FROM mileage_tracking mt JOIN mileage_category mc "
                           "ON mt.mileage_category_id = mc.id "
-                          "WHERE mt.use_date BETWEEN %s AND %s AND mt.user_email = %s "
+                          "WHERE mt.use_date BETWEEN %s AND %s AND mt.user_email = %s AND mc.id != 1 "
                           "ORDER BY mt.use_date DESC")
             cursor.execute(select_sql, (start_date, end_date, user_email))
 
@@ -417,7 +417,6 @@ def get_donation_count(user_email):
             
             cursor.execute(sql, (user_email,))
             donation_count = cursor.fetchone()['donation_count']
-            # donation_count = cursor.fetchone()[0]
             return donation_count
 
     except Exception as e:
