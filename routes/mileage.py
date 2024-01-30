@@ -94,8 +94,10 @@ def my_mileage(current_user):
 @token_required
 def get_mygrade(current_user):
     try:
-        grade = database.get_mileage_grade(current_user)
-        print(grade)
+        count = database.get_mileage_grade(current_user)
+        grade = "prime"
+        if count >= 5:
+            grade = "silver"
         return jsonify({'grade': grade}), 200
     except Exception as e:
         app.logger.debug(e)
