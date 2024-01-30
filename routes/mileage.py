@@ -96,8 +96,12 @@ def get_mygrade(current_user):
     try:
         count = database.get_mileage_grade(current_user)
         grade = "prime"
-        if count >= 5:
+        if count < 5:
+            grade = "bronze"
+        elif count <10:
             grade = "silver"
+        else:
+            grade = "gold"
         return jsonify({'grade': grade}), 200
     except Exception as e:
         app.logger.debug(e)
