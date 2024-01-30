@@ -88,3 +88,15 @@ def my_mileage(current_user):
     except Exception as e:
         app.logger.debug(e)
         return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}
+    
+    
+@mileage_bp.route('/get_mygrade', methods=["GET"])
+@token_required
+def my_mileage(current_user):
+    try:
+        grade = database.get_mileage_grade(current_user)
+        print(grade)
+        return jsonify({'grade': grade}), 200
+    except Exception as e:
+        app.logger.debug(e)
+        return jsonify({"message": "요청중 에러가 발생"}), 500, {'Content-Type': 'application/json'}
