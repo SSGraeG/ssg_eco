@@ -98,7 +98,7 @@ def get_mygrade(current_user):
         grade = "prime"
         if count < 5:
             grade = "bronze"
-        elif count <10:
+        elif count < 10:
             grade = "silver"
         else:
             grade = "gold"
