@@ -92,7 +92,7 @@ def my_mileage(current_user):
     
 @mileage_bp.route('/get_mygrade', methods=["GET"])
 @token_required
-def my_mileage(current_user):
+def get_mygrade(current_user):
     try:
         grade = database.get_mileage_grade(current_user)
         print(grade)
