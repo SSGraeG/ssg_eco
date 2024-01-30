@@ -434,7 +434,7 @@ def get_mileage_grade(user_email):
                    "WHERE user_email = %s AND mileage_category_id = 1")
             
             cursor.execute(sql, (user_email,))
-            accrual_count = cursor.fetchone()['grade']
+            grade = cursor.fetchone()['grade']
             
             return grade
 
