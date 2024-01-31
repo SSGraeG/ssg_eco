@@ -373,11 +373,11 @@ def add_mileage(user_email):
             point = 100
             
             if count < 5:
-                grade = "bronze"
+                grade = "GREEN"
             elif count < 10:
-                grade = "silver"
+                grade = "SILVER"
             else:
-                grade = "gold"
+                grade = "GOLD"
                 point = 200
 
             sql = "UPDATE user SET mileage = mileage + %s WHERE email = %s"

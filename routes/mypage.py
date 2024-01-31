@@ -39,11 +39,11 @@ def get_user_profile(current_user):
         count = database.get_mileage_grade(current_user)
         grade = "prime"
         if count < 5:
-            grade = "bronze"
+            grade = "GREEN"
         elif count < 10:
-            grade = "silver"
+            grade = "SILVER"
         else:
-            grade = "gold"
+            grade = "GOLD"
         if user_info:
             name = user_info.get('name')
             email = user_info.get('email')

@@ -93,11 +93,11 @@ def image(current_user):
             grade = "prime"
             point = 100
             if count < 5:
-                grade = "bronze"
+                grade = "GREEN"
             elif count < 10:
-                grade = "silver"
+                grade = "SILVER"
             else:
-                grade = "gold"
+                grade = "GOLD"
                 point = 200
             return jsonify({"message": "성공", "mileage": current_mileage, "grade": grade, "point": point}), 200, {'Content-Type': 'application/json'}
         else:
