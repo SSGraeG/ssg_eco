@@ -7,7 +7,7 @@
 
 
 ## :deciduous_tree: 게임 설명
-|![alt text](ezgif.com-video-to-gif-converter.gif)|![alt text](ezgif.com-video-to-gif-converter-1.gif)|
+|![alt text](-Clipchamp-ezgif.com-video-to-gif-converter.gif)|![alt text](SSS-removebg-preview-2.png)|
 |:---:|:---:|
 |시작 화면|사용자 정보 화면|
 
