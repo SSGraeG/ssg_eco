@@ -7,7 +7,7 @@
 
 
 ## :deciduous_tree: 게임 설명
-|![alt text](<제목 없는 동영상 - Clipchamp로 제작.gif>)|![alt text](SSS-removebg-preview-2.png)|
+|<video controls src="로그인&마이페이지.mp4" title="Title"></video>|![alt text](SSS-removebg-preview-2.png)|
 |:---:|:---:|
 |시작 화면|사용자 정보 화면|
 
