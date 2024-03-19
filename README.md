@@ -6,7 +6,7 @@
 ![alt text](SSS-removebg-preview.png)
 
 
-## 게임 설명
+## :leaves: 게임 설명
 |![alt text](SSS-removebg-preview-1.png)|![alt text](SSS-removebg-preview-2.png)|
 |:---:|:---:|
 |시작 화면|사용자 정보 화면|
