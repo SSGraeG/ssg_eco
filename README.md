@@ -7,7 +7,7 @@
 
 
 ## :deciduous_tree: 게임 설명
-|<video controls src="로그인&마이페이지.mp4" title="Title"></video>|![alt text](SSS-removebg-preview-2.png)|
+|![alt text](ezgif.com-video-to-gif-converter.gif)|![alt text](ezgif.com-video-to-gif-converter-1.gif)|
 |:---:|:---:|
 |시작 화면|사용자 정보 화면|
 
